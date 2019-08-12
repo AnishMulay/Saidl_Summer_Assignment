@@ -1,0 +1,71 @@
+\documentclass{article}
+
+\title{At Wits End}
+\author{Anish Mulay}
+
+\begin{document}
+
+\maketitle
+
+\section{Formulation of the problem}
+To formulate this problem as a Markov Decision Process, we need 4 things\\*
+1.A well defined state space\\*
+2.A well defined action space\\*
+3.A policy (the solution of the Markov Decision Process)\\* 		
+4.A Q-table which lists the expected reward for every state-action pair\\*
+
+The solution and the Q-table values are given later, here we define the state space and action space of the given situation. 
+let 'L' indicate the state of laughing and 'NL' indicate the state of no laughter, we know that a transition from NL to L yields a 
+reward of -1 and a transition from L to NL yields a reward of +1. Therefore the statespace S is\\*
+
+\vspace{5mm}
+S = \{L, NL\}\\
+\vspace{5mm}\\*
+for the action space, the person can chose to both play the organ and burn incense, do neither or do one of the two. Therefore the action space for this problem is\\*
+
+\vspace{5mm}
+A = \{O \& I , O \&  $\neg$I , $\neg$O \& I , $\neg$O \& $\neg$I\}
+\vspace{5mm}\\*
+So the state space is a tuple of 2 elements and the action space is a tuple of 4 elements. A state transition happens when either (1) there is laughter at timestep
+t and no laughter at timestep t+1 , such a transition will be rewarded with +1,  or (2) when there is no laughter at tiemstep t and there is laughter at timestep t+1, such a transition gets a reward of -1\\*
+
+\vspace{5mm}
+L $\rightarrow$ NL = +1 and 
+NL $\rightarrow$ L = -1
+\vspace{5mm}\\*
+
+In any state $ S_t$ , the expected reward by following the current policy $\Pi$ is
+\vspace{5mm}
+Reward = $E_\Pi \left[
+\sum\limits_{i=1}^{\infty} \gamma^i R_{\i} \right]$\\*
+
+\section{Policy Iterations}
+we start with the policy $\Pi (laughing) = \Pi (silent) = I \& \neg O$\\
+In order to find an optimal policy, we need to explore the space as well as exploit the data that we already have. To do that we use an epsilon greedy policy which
+selects the best action with probability 1 - $\epsilon$ and selects a random action with probabilty $\epsilon$
+
+Policy iteration includes: policy evaluation + policy improvement, and the two are repeated iteratively until policy converges.
+\section{Optimal policy}
+
+	The optimal policy can be expressed as a table with the rows representing states and the columns representing actions, each cell of the table will then 		contain
+	the action-value of that particluar state-action pair.\\*
+
+	\begin{table}
+    	\begin{tabular}{|c|c|c|c|c|}
+        	\hline
+        	State/Action & O  \&  I & O  \&  nI & nO  \&  I & nO  \&  nI \\ \hline
+        	L            & +1    & +1     & -1     & -1      \\ 
+        	NL           & -1    & -1     & +1     & -1      \\
+        	\hline
+    	\end{tabular}
+	\end{table}
+
+\section{Advice}
+Based on the action-values , my advice to At Wits End is, if there is laughter, play the organ and if room is quite, do not play the organ and burn the
+incense.
+
+\end{document}
+
+
+
+
